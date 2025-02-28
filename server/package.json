@@ -1,0 +1,41 @@
+{
+  "name": "personal_website_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=develop nodemon src/server.js",
+    "test": "MONGO_DATABASE=test ADMIN_TEST_USERNAME=minhnguyenaus98 ADMIN_TEST_PASSWORD=mINH1998 mocha --timeout 10000  --exit ./tests/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinhMaxx/personal_website_backend.git"
+  },
+  "author": "Minh Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MinhMaxx/personal_website_backend/issues"
+  },
+  "homepage": "https://github.com/MinhMaxx/personal_website_backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.1",
+    "nodemailer": "^6.9.5",
+    "sinon": "^17.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^6.3.3"
+  }
+}
