@@ -10,6 +10,7 @@ const testimonialRoutes = require("./routes/testimonialRoutes");
 const { mongooseConnection } = require("./databaseMongo");
 const configHelper = require("./helpers/configHelper");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 // Initialize the Express app
 const app = express();
@@ -27,10 +28,9 @@ mongooseConnection()
 // Update CORS configuration
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://bminhnguyen.dev" // Update this with your production domain
-        : "http://localhost:3000", // Frontend development server
+    origin: process.env.FRONTEND_URL_WEB_URL_LINK || "http://localhost:3000",
+    credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 
@@ -50,6 +50,19 @@ app.use("/degree", degreeRoutes); // Routes for academic achivement
 app.use("/employment", employmentHistoryRoutes); // Routes for employment history
 app.use("/project", projectRoutes); // Routes for projects
 app.use("/testimonial", testimonialRoutes); // Routes for testimonials
+
+// Add static file serving for React build
+app.use(express.static(path.join(__dirname, "../../client/build")));
+
+// Add this before API routes
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
+});
+
+// Add this after all API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
+});
 
 // Function to start the server and establish a connection to the MongoDB database
 const startServer = () => {
